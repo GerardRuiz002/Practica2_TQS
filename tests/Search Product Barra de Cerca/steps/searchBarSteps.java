@@ -30,6 +30,11 @@ WebDriver driver;
 		driver.findElement(By.id("search_product")).sendKeys("jeans");
 	}
 	
+	@When("the user enters in the search bar putting je")  
+	public void theUserEntersInTheSeatchBarPuttingJe() {
+		driver.findElement(By.id("search_product")).sendKeys("je");
+	}
+	
 	@When("the user enters in the search bar putting cucumber")  
 	public void theUserEntersInTheSeatchBarPuttingCucumber() {
 		driver.findElement(By.id("search_product")).sendKeys("cucumber");
