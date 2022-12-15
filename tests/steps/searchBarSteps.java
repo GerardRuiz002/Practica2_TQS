@@ -11,7 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class searchBarSteps {
-WebDriver driver;
+	WebDriver driver;
 	
 	@Given("the user is in the index page")
 	public void theUserIsInTheIndexPage() {
