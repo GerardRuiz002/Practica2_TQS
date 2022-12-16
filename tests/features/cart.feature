@@ -15,3 +15,5 @@ And user clicks add to cart
 And wait seconds
 And user go to cart
 And user delete product
+And wait seconds
+Then void cart

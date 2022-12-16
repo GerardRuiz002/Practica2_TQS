@@ -2,7 +2,9 @@ package steps;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import io.cucumber.java.en.*;
 
@@ -40,5 +42,40 @@ public class reviewOfProductSteps {
 	@When("in the review user click in submit button")
 	public void inTheReviewUserClickInSubmitButton() {
 		driver.findElement(By.id("button-review")).click();
+	}
+	
+	@When("wait one second") 
+	public void waitOneSecond() throws InterruptedException {
+		Thread.sleep(1000);
+	}
+	
+	@Then("message thank for you review")
+	public void messageThankForYouReview() {
+		String valorEsperat = driver.findElement(By.xpath("//*[@id=\"review-section\"]/div/div/span")).getText();
+		Assert.assertTrue(valorEsperat.contains("Thank you for your review."));
+	}
+
+	@Then("message completa este campo in email") 
+	public void messageCompletaEsteCampoInEmail() {
+		WebElement nombreField = driver.findElement(By.id("email"));
+		String valorEsperat = nombreField.getAttribute("validationMessage");
+		System.out.print(valorEsperat);
+		Assert.assertTrue(valorEsperat.contains("Completa este campo"));
+	}
+	
+	@Then("message completa este campo in name") 
+	public void messageCompletaEsteCampoInNom() {
+		WebElement nombreField = driver.findElement(By.id("name"));
+		String valorEsperat = nombreField.getAttribute("validationMessage");
+		System.out.print(valorEsperat);
+		Assert.assertTrue(valorEsperat.contains("Completa este campo"));
+	}
+	
+	@Then("message completa este campo in review") 
+	public void messageCompletaEsteCampoInReview() {
+		WebElement nombreField = driver.findElement(By.id("review"));
+		String valorEsperat = nombreField.getAttribute("validationMessage");
+		System.out.print(valorEsperat);
+		Assert.assertTrue(valorEsperat.contains("Completa este campo"));
 	}
 }

@@ -53,7 +53,8 @@ public class cartSteps {
 	
 	@Then("void cart")
 	public void voidCart() {
-		String valorEsperat = driver.findElement(By.className("text-center")).getText();
+		String valorEsperat = driver.findElement(By.xpath("//*[@id=\"empty_cart\"]/p/b")).getText();
 		Assert.assertTrue(valorEsperat.contains("Cart is empty!"));
 	}
+	
 }

@@ -3,6 +3,7 @@ package steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import io.cucumber.java.en.*;
 
@@ -44,5 +45,21 @@ public class contactWithUsSteps {
 	@When("user click in submit button")
 	public void userClickInSubmitButton() {
 		driver.findElement(By.name("submit")).click();
+	}
+	
+	@When("user click ok in alert")
+	public void userClickOkInAlert() {
+		driver.switchTo().alert().accept();
+	}
+	
+	@When("user wait seconds to click ok")
+	public void userWaitSecondsToClickOk() throws InterruptedException {
+		Thread.sleep(3000);
+	}
+	
+	@Then("successful contact with us")
+	public void successfulContactWithUs() {
+		String valorEsperat = driver.findElement(By.xpath("//*[@id=\"contact-page\"]/div[2]/div[1]/div/div[2]")).getText();
+		Assert.assertTrue(valorEsperat.contains("Success! Your details have been submitted successfully."));
 	}
 }
