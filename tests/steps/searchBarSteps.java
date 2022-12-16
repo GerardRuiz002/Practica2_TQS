@@ -50,4 +50,10 @@ public class searchBarSteps {
 		String title = driver.findElement(By.className("feature_items")).getText();
 		Assert.assertTrue(title.contains("SEARCHED PRODUCTS"));
 	}
+	
+	@Then("the product list with jeans appears")
+	public void theDressListWithJeansAppears() {
+		String title = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/p")).getText();
+		Assert.assertTrue(title.contains("Soft Stretch Jeans"));
+	}
 }
