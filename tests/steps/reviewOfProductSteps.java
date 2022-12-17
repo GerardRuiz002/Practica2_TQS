@@ -18,7 +18,6 @@ public class reviewOfProductSteps {
 		driver.navigate().to("https://automationexercise.com");
 	}
 	
-	
 	@When("user clicks view product of one product")
 	public void userClicksViewProductOfOneProduct() {
 		driver.findElement(By.xpath("//a[@href='/product_details/1']")).click();

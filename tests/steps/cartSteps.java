@@ -24,7 +24,6 @@ public class cartSteps {
 		driver.findElement(By.partialLinkText("Products")).click();
 	}
 	
-	
 	@When("user clicks add to cart")
 	public void userClicksAddToCart() {
 		driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/a")).click();
@@ -38,6 +37,27 @@ public class cartSteps {
 	@When("user go to cart")
 	public void userGoToCart() {
 		driver.findElement(By.xpath("//*[@id=\"cartModal\"]/div/div/div[2]/p[2]/a/u")).click();
+	}
+	
+	@When("user clicks continue shopping") 
+	public void userClicksContunueShupping() {
+		driver.findElement(By.xpath("//*[@id=\"cartModal\"]/div/div/div[3]/button")).click();
+	}
+	
+	@When("user clicks view product to add cart")
+	public void userClicksViewProductToAddCart() {
+		driver.findElement(By.xpath("//a[@href='/product_details/1']")).click();
+	}
+	
+	@When("user add quantity")
+	public void userAddQuantity() {
+		driver.findElement(By.id("quantity")).clear();
+		driver.findElement(By.id("quantity")).sendKeys("2");
+	}
+	
+	@When("user add to cart product with quantity")
+	public void userAddToCartProductWithQuantity() {
+		driver.findElement(By.xpath("/html/body/section/div/div/div[2]/div[2]/div[2]/div/span/button")).click();
 	}
 	
 	@Then("the product added is in the list")
@@ -55,6 +75,15 @@ public class cartSteps {
 	public void voidCart() {
 		String valorEsperat = driver.findElement(By.xpath("//*[@id=\"empty_cart\"]/p/b")).getText();
 		Assert.assertTrue(valorEsperat.contains("Cart is empty!"));
+	}
+	
+	@Then("the product with quantity added in the list")
+	public void theProductWithQuantityAddedInTheList() {
+		String valorEsperat1 = driver.findElement(By.xpath("//*[@id=\"product-1\"]/td[2]/h4/a")).getText();
+		Assert.assertTrue(valorEsperat1.contains("Blue Top"));
+		
+		String valorEsperat2 = driver.findElement(By.xpath("//*[@id=\"product-1\"]/td[4]/button")).getText();
+		Assert.assertTrue(valorEsperat2.contains("2"));
 	}
 	
 }
