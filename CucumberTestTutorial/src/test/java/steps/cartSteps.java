@@ -1,10 +1,13 @@
 package steps;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import io.cucumber.java.en.Given;
@@ -89,6 +92,17 @@ public class cartSteps {
 		
 		String valorEsperat2 = driver.findElement(By.xpath("//*[@id=\"product-1\"]/td[4]/button")).getText();
 		Assert.assertTrue(valorEsperat2.contains("2"));
+	}
+	
+	@When("checkExternAd if visible on cart")
+	public void checkExternAd_if_visible_on_cart() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;		
+		js.executeScript("var ads = document.getElementsByClassName('adsbygoogle adsbygoogle-noablate');"
+		                + "while(ads.length > 0) {"
+		                + "  ads[0].parentNode.removeChild(ads[0]);"
+		                + "}");
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(8));
+		
 	}
 	
 }
