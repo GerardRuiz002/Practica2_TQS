@@ -1,9 +1,7 @@
 package steps;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
@@ -28,10 +26,7 @@ public class cartSteps {
 	
 	@When("user clicks add to cart")
 	public void userClicksAddToCart() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement Element = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/a"));
-		js.executeScript("arguments[0].scrollIntoView();", Element);
-		Element.click();
+		driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/a")).click();
 	}
 	
 	@When("wait seconds")

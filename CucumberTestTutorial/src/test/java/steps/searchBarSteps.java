@@ -1,9 +1,14 @@
 package steps;
 
 import io.cucumber.java.en.*;
+
+import java.time.Duration;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import io.cucumber.java.en.Given;
@@ -45,10 +50,33 @@ public class searchBarSteps {
 		driver.findElement(By.id("submit_search")).click();
 	}
 	
+	@When("the user closes the ad in search bar")
+	public void theUserClosesTheAdInSearchBar() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("var ads = document.getElementByClassName('adsbygoogle adsbygoogle-noablate');"
+				+ "while(ads.length > 0) { "
+				+ "ads[0].parentNode.removeChild(ads[0]);"
+				+ "}");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));	
+	}
+	
+	
 	@Then("the product list appears")
 	public void theDressListAppears() {
 		String title = driver.findElement(By.className("feature_items")).getText();
 		Assert.assertTrue(title.contains("SEARCHED PRODUCTS"));
+	}
+	
+	@Then("the product list with nothing appears")
+    public void theDressListWithNothingAppears() {
+        String title = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/h2")).getText();
+        Assert.assertTrue(title.contains("SEARCHED PRODUCTS"));
+    }
+	
+	@Then("the product list appears with all products")
+	public void theDressListAppearsWithAllProducts() {
+		String title = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/h2")).getText();
+		Assert.assertTrue(title.contains("ALL PRODUCTS"));
 	}
 	
 	@Then("the product list with jeans appears")

@@ -3,7 +3,6 @@ package steps;
 import java.io.File;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -48,10 +47,7 @@ public class contactWithUsSteps {
 	
 	@When("user click in submit button")
 	public void userClickInSubmitButton() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement element = driver.findElement(By.name("submit"));
-		js.executeScript("arguments[0].scrollIntoView();", element);
-		element.click();
+		driver.findElement(By.name("submit")).click();
 	}
 	
 	@When("user click ok in alert")
@@ -66,7 +62,7 @@ public class contactWithUsSteps {
 	
 	@When("user add a file") 
 	public void userAddAFile() {
-		File file = new File("C:\\Users\\guill\\OneDrive\\Escriptori\\3r Carrera\\QS\\Eclipse workspace\\CucumberTestTutorial\\src\\test\\java\\FilesTest\\prova1.txt");
+		File file = new File("C:\\Users\\gerar\\eclipse-workspace\\CucumberTest\\FilesTest\\prova1.txt");
 		String path = file.getAbsolutePath();
 		driver.findElement(By.name("upload_file")).sendKeys(path);
 	}
