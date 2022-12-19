@@ -7,6 +7,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -32,22 +33,34 @@ public class searchBarSteps {
 	
 	@When("the user enters in the search bar putting jeans")  
 	public void theUserEntersInTheSeatchBarPuttingPants() {
-		driver.findElement(By.id("search_product")).sendKeys("jeans");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.id("search_product"));
+		js.executeScript("arguments[0].scrollIntoView();", Element);
+		Element.sendKeys("jeans");
 	}
 	
 	@When("the user enters in the search bar putting je")  
 	public void theUserEntersInTheSeatchBarPuttingJe() {
-		driver.findElement(By.id("search_product")).sendKeys("je");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.id("search_product"));
+		js.executeScript("arguments[0].scrollIntoView();", Element);
+		Element.sendKeys("je");
 	}
 	
 	@When("the user enters in the search bar putting cucumber")  
 	public void theUserEntersInTheSeatchBarPuttingCucumber() {
-		driver.findElement(By.id("search_product")).sendKeys("cucumber");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.id("search_product"));
+		js.executeScript("arguments[0].scrollIntoView();", Element);
+		Element.sendKeys("cucumber");
 	}
 	
 	@When("the user clicks the search button")  
 	public void theUserClicksTheSeatchButton() {
-		driver.findElement(By.id("submit_search")).click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.id("submit_search"));
+		js.executeScript("arguments[0].scrollIntoView();", Element);
+		Element.click();
 	}
 	
 	@When("the user closes the ad in search bar")
@@ -63,7 +76,10 @@ public class searchBarSteps {
 	
 	@Then("the product list appears")
 	public void theDressListAppears() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.className("feature_items"));
 		String title = driver.findElement(By.className("feature_items")).getText();
+		js.executeScript("arguments[0].scrollIntoView();", Element);
 		Assert.assertTrue(title.contains("SEARCHED PRODUCTS"));
 	}
 	
@@ -81,7 +97,25 @@ public class searchBarSteps {
 	
 	@Then("the product list with jeans appears")
 	public void theDressListWithJeansAppears() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/p"));
 		String title = driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/p")).getText();
+		js.executeScript("arguments[0].scrollIntoView();", Element);
 		Assert.assertTrue(title.contains("Soft Stretch Jeans"));
+	}
+	
+	@When("checkExternAd if visible on search")
+	public void checkExternAd_if_visible() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;		
+		js.executeScript("var ads = document.getElementsByClassName('adsbygoogle adsbygoogle-noablate');"
+		                + "while(ads.length > 0) {"
+		                + "  ads[0].parentNode.removeChild(ads[0]);"
+		                + "}");
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(8));
+	}
+	
+	@When("wait one second on search") 
+	public void waitOneSecond_on_search() throws InterruptedException {
+		Thread.sleep(3000);
 	}
 }

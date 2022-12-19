@@ -1,7 +1,9 @@
 package steps;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NoSuchWindowException;
 
 import java.time.Duration;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -69,38 +71,71 @@ WebDriver driver;
 		}catch (NoSuchElementException e) {
 			
 		}
-	}	
+	}		
+	
+	
+	@When("checkExternAd if visible on brand")
+	public void checkExternAd_if_visible() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;		
+		js.executeScript("var ads = document.getElementsByClassName('adsbygoogle adsbygoogle-noablate');"
+		                + "while(ads.length > 0) {"
+		                + "  ads[0].parentNode.removeChild(ads[0]);"
+		                + "}");
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(8));
+		
+		
+		/*WebElement frame1 = driver.findElement(By.id("ad_position_box"));
+		driver.switchTo().frame(frame1);
+		WebElement frame2 = driver.findElement(By.id("#card"));
+	    driver.switchTo().frame(frame2);
+		driver.findElement(By.xpath("//div[@id, 'dismiss')]")).click();
+		driver.switchTo().defaultContent();	*/	
+	 
+		//driver.switchTo().frame(driver.findElement(By.cssSelector("creative")));
+		/////////////////////////////
+		/*try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+			//driver.switchTo().frame(driver.findElement(By.cssSelector("body")));  //.container
+			Set<String> windowHandles =driver.getWindowHandles();
+			for(String windowHandle : windowHandles) {
+				driver.switchTo().window(windowHandle);
+				
+				if(driver.getTitle().contains("google_vignette")) {
+					driver.findElement(By.id("dismiss-button")).click();					
+					driver.switchTo().defaultContent();
+				}			
+			}				
+		}catch(NoSuchWindowException e) {			
+		}*/	
+	}
 	
 	
 	//POLO
 	@When("the user clicks the POLO button")
-	public void theUserClicksOnPOLOButton() {		
+	public void theUserClicksOnPOLOButton() {			
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement Element = driver.findElement(By.xpath("//a[@href='/brand_products/Polo'][contains(.,'(6)Polo')]"));
 		js.executeScript("arguments[0].scrollIntoView();", Element);
 		Element.click();
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+		
 	}	
 	@Then("the title BRAND - POLO PRODUCTS appears")
-	public void thePOLOBrandAppears() {
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	public void thePOLOBrandAppears() {			
 		String message = driver.findElement(By.xpath("//h2[@class='title text-center'][contains(.,'Brand - Polo Products')]")).getText();
 		Assert.assertTrue(message.contains("BRAND - POLO PRODUCTS"));
-	}	
-		
+	}		
 	
 	
 	//H&M
 	@When("the user clicks the H&M button")
-	public void theUserClicksOnHiMButton() {		
+	public void theUserClicksOnHiMButton() {	
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement Element = driver.findElement(By.xpath("//a[@href='/brand_products/H&M'][contains(.,'(5)H&M')]"));
 		js.executeScript("arguments[0].scrollIntoView();", Element);
 		Element.click();
 	}	
 	@Then("the title BRAND - H&M PRODUCTS appears")
-	public void theHiMBrandAppears() {	
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+	public void theHiMBrandAppears() {			
 		String message = driver.findElement(By.xpath("//h2[@class='title text-center'][contains(.,'Brand - H&M Products')]")).getText();
 		Assert.assertTrue(message.contains("BRAND - H&M PRODUCTS"));
 	}		

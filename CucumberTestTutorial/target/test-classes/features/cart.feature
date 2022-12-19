@@ -2,7 +2,9 @@ Feature: cart
 
 Scenario: afegir un producte a la cistella
 Given user in the index page to add a product to cart
+And checkExternAd if visible on cart
 When user clicks products section
+And checkExternAd if visible on cart
 And user clicks add to cart
 And wait seconds
 And user go to cart
@@ -10,7 +12,9 @@ Then the product added is in the list
 
 Scenario: afegir un producte a la cistella i eliminar-lo
 Given user in the index page to add a product to cart
+And checkExternAd if visible on cart
 When user clicks products section
+And checkExternAd if visible on cart
 And user clicks add to cart
 And wait seconds
 And user go to cart
@@ -20,7 +24,9 @@ Then void cart
 
 Scenario: afegir dos productes a la cistella 
 Given user in the index page to add a product to cart
+And checkExternAd if visible on cart
 When user clicks view product to add cart
+And checkExternAd if visible on cart
 And user add quantity
 And user add to cart product with quantity
 And wait seconds

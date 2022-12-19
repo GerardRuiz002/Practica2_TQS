@@ -1,9 +1,12 @@
 package steps;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
@@ -190,6 +193,17 @@ public class registerAndLogin {
 		}
 	}	
 	
+	//eliminacio dels anuncis dinamics de google:
+	@When("checkExternAd if visible on register")
+	public void checkExternAd_if_visible() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("var ads = document.getElementsByClassName('adsbygoogle adsbygoogle-noablate');"
+		                + "while(ads.length > 0) {"
+		                + "  ads[0].parentNode.removeChild(ads[0]);"
+		                + "}");
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+	}
+	
 	
 	@Then("the account cant be created because of empty password")  
 	public void check_obligatory_password_required() {
@@ -227,7 +241,6 @@ public class registerAndLogin {
 		Assert.assertTrue(message.contains("Logout"));
 	}	
 	
-	//And 
 	@When("the user logs out")
 	public void usuariTancaSessio() {
 		WebElement logout = driver.findElement(By.xpath("//a[@href='/logout'][contains(.,'Logout')]"));

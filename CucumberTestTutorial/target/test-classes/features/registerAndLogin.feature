@@ -31,17 +31,20 @@ Scenario: registreCorrecte
 	
 	And delete addCruz if visible
 	And delete addCerrar if visible
+	And checkExternAd if visible on register
 	
 	And the user clicks continueButton
 	
 	And delete addCruz if visible
 	And delete addCerrar if visible
+	And checkExternAd if visible on register
 	
 	And the user clicks delateAccountButton
 	Then the account is delated
 	
 	And delete addCruz if visible
 	And delete addCerrar if visible
+	And checkExternAd if visible on register
 	
 	And the user clicks continue2Button
 	
